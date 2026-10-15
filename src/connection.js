@@ -99,27 +99,20 @@ function handleConnectionUpdate(update) {
       return;
     }
 
-    if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-      reconnectAttempts++;
-      const delay = Math.min(reconnectAttempts * 3000, 15000);
-      logger.warn(`Conexión cerrada. Generando código de emparejamiento en ${delay}ms...`);
+    generatePairingCode();
+  }
+}
 
-      setTimeout(async () => {
-        if (!sock) return;
-        try {
-          const code = await sock.requestPairingCode('5491164431320');
-          pairingCode = code;
-          logger.info(`Código de emparejamiento: ${code}`);
-          logger.info('Ingresa este código en WhatsApp > Dispositivos vinculados > Vincular dispositivo');
-        } catch (err) {
-          logger.error('Error generando código de emparejamiento:', err.message);
-          if (messageHandler) connectBot(messageHandler);
-        }
-      }, delay);
-    } else {
-      logger.error('Máximo de reconexiones alcanzado.');
-      sock = null;
-    }
+async function generatePairingCode() {
+  if (!sock) return;
+  try {
+    const code = await sock.requestPairingCode('5491164431320');
+    pairingCode = code;
+    logger.info(`Código de emparejamiento: ${code}`);
+    logger.info('Ingresa este código en WhatsApp > Dispositivos vinculados > Vincular dispositivo');
+  } catch (err) {
+    logger.error('Error generando código de emparejamiento:', err.message);
+    if (messageHandler) connectBot(messageHandler);
   }
 }
 
