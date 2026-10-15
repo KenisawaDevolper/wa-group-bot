@@ -18,7 +18,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@whiskeysockets/baileys": "^6.7.16",
+    "@itsliaaa/starcore": "^0.0.0-alpha.35",
+    "@itsliaaa/starforge": "^0.0.0-alpha.10",
+    "@itsliaaa/starcore": "^1.0.0",
     "pino": "^9.5.0",
     "pino-pretty": "^13.2.0"
   },
