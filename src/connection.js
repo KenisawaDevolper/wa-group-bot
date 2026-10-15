@@ -86,7 +86,12 @@ function handleConnectionUpdate(update) {
     logger.info('Conexión establecida con WhatsApp');
     isConnecting = false;
     reconnectAttempts = 0;
-    pairingCode = null;
+
+    if (!sock.authState?.creds?.me?.id) {
+      generatePairingCode();
+    } else {
+      pairingCode = null;
+    }
   }
 
   if (connection === 'close') {
@@ -99,7 +104,9 @@ function handleConnectionUpdate(update) {
       return;
     }
 
-    generatePairingCode();
+    if (!sock.authState?.creds?.me?.id) {
+      generatePairingCode();
+    }
   }
 }
 
