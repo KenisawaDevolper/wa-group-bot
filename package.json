@@ -1,0 +1,28 @@
+{
+  "name": "wa-group-bot",
+  "version": "1.0.0",
+  "description": "WhatsApp bot modular con arquitectura CASE + PLUGINS para gestión de grupos",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "node --test 'tests/**/*.test.js'"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "groups",
+    "baileys"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.16",
+    "pino": "^9.5.0",
+    "pino-pretty": "^13.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

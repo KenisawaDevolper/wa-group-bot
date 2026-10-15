@@ -1,0 +1,8 @@
+{
+  "test-antilink@g.us": {
+    "antilinkEnabled": true,
+    "antilinkAction": "delete",
+    "allowedDomains": [],
+    "blockedDomains": []
+  }
+}
