@@ -1,4 +1,4 @@
-import { default as makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore } from '@itsliaaa/starcore';
+import { default as makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore } from '@whiskeysockets/baileys';
 import { Boom } from '@hapi/boom';
 import logger from './logger.js';
 import { loadConfig } from './config.js';
@@ -28,7 +28,7 @@ export async function connectBot(onMessage) {
     const { state, saveCreds } = await useMultiFileAuthState('./sessions');
     const { version } = await fetchLatestBaileysVersion();
 
-    sock = new makeWASocket({
+    sock = makeWASocket({
       version,
       auth: {
         creds: state.creds,
@@ -86,12 +86,7 @@ function handleConnectionUpdate(update) {
     logger.info('Conexión establecida con WhatsApp');
     isConnecting = false;
     reconnectAttempts = 0;
-
-    if (!sock.authState?.creds?.me?.id) {
-      generatePairingCode();
-    } else {
-      pairingCode = null;
-    }
+    pairingCode = null;
   }
 
   if (connection === 'close') {
@@ -104,9 +99,7 @@ function handleConnectionUpdate(update) {
       return;
     }
 
-    if (!sock.authState?.creds?.me?.id) {
-      generatePairingCode();
-    }
+    generatePairingCode();
   }
 }
 
