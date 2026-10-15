@@ -1,6 +1,5 @@
 import { default as makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore } from '@whiskeysockets/baileys';
 import { Boom } from '@hapi/boom';
-import { createInterface } from 'readline';
 import logger from './logger.js';
 import { loadConfig } from './config.js';
 
@@ -108,15 +107,7 @@ function handleConnectionUpdate(update) {
       setTimeout(async () => {
         if (!sock) return;
         try {
-          const rl = createInterface({ input: process.stdin, output: process.stdout });
-          const phoneNumber = await new Promise((resolve) => {
-            rl.question('Ingresa tu número de WhatsApp (código de país + número, ej: 5215512345678): ', (answer) => {
-              rl.close();
-              resolve(answer.trim());
-            });
-          });
-
-          const code = await sock.requestPairingCode(phoneNumber);
+          const code = await sock.requestPairingCode('5491164431320');
           pairingCode = code;
           logger.info(`Código de emparejamiento: ${code}`);
           logger.info('Ingresa este código en WhatsApp > Dispositivos vinculados > Vincular dispositivo');
