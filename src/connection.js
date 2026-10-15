@@ -28,7 +28,7 @@ export async function connectBot(onMessage) {
     const { state, saveCreds } = await useMultiFileAuthState('./sessions');
     const { version } = await fetchLatestBaileysVersion();
 
-    sock = makeWASocket({
+    sock = new makeWASocket({
       version,
       auth: {
         creds: state.creds,
